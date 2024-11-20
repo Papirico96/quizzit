@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.quizzit</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.example.quizzit.CreateBlock</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.example.quizzit.ExamModeActivity</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Button</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.example.quizzit.BlocksFragment</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.annotation.NonNull</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.ActionBarDrawerToggle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.drawerlayout.widget.DrawerLayout</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.fragment.app.Fragment</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.material.navigation.NavigationView</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+
+    <span class="s0">private </span><span class="s1">DrawerLayout drawerLayout</span><span class="s0">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_main)</span><span class="s0">;</span>
+
+        <span class="s2">// Inicializar DrawerLayout y NavigationView</span>
+        <span class="s1">drawerLayout = findViewById(R.id.drawer_layout)</span><span class="s0">;</span>
+        <span class="s1">NavigationView navigationView = findViewById(R.id.navigation_view)</span><span class="s0">;</span>
+
+        <span class="s2">// Configurar el toggle para el menú lateral</span>
+        <span class="s1">ActionBarDrawerToggle toggle = </span><span class="s0">new </span><span class="s1">ActionBarDrawerToggle(</span>
+                <span class="s0">this, </span><span class="s1">drawerLayout</span><span class="s0">, </span><span class="s1">R.string.open_drawer</span><span class="s0">, </span><span class="s1">R.string.close_drawer)</span><span class="s0">;</span>
+        <span class="s1">drawerLayout.addDrawerListener(toggle)</span><span class="s0">;</span>
+        <span class="s1">toggle.syncState()</span><span class="s0">;</span>
+        <span class="s1">getSupportActionBar().setDisplayHomeAsUpEnabled(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s2">// Configurar el menú lateral</span>
+        <span class="s1">navigationView.setNavigationItemSelectedListener(item -&gt; {</span>
+            <span class="s0">switch </span><span class="s1">(item.getItemId()) {</span>
+                <span class="s0">case </span><span class="s1">R.id.nav_blocks:</span>
+                    <span class="s1">showFragment(</span><span class="s0">new </span><span class="s1">BlocksFragment())</span><span class="s0">;</span>
+                    <span class="s0">break;</span>
+                <span class="s0">case </span><span class="s1">R.id.nav_create_questions:</span>
+                    <span class="s1">startActivity(</span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this, </span><span class="s1">CreateBlock.</span><span class="s0">class</span><span class="s1">))</span><span class="s0">;</span>
+                    <span class="s0">break;</span>
+                <span class="s0">case </span><span class="s1">R.id.nav_exam_mode:</span>
+                    <span class="s1">startActivity(</span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this, </span><span class="s1">ExamModeActivity.</span><span class="s0">class</span><span class="s1">))</span><span class="s0">;</span>
+                    <span class="s0">break;</span>
+            <span class="s1">}</span>
+            <span class="s1">drawerLayout.closeDrawers()</span><span class="s0">;</span>
+            <span class="s0">return true;</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+        <span class="s2">// Botones en la pantalla principal</span>
+        <span class="s1">Button btnCreateBlock = findViewById(R.id.btnCreateBlock)</span><span class="s0">;</span>
+        <span class="s1">btnCreateBlock.setOnClickListener(v -&gt; startActivity(</span><span class="s0">new </span><span class="s1">Intent(MainActivity.</span><span class="s0">this, </span><span class="s1">CreateBlock.</span><span class="s0">class</span><span class="s1">)))</span><span class="s0">;</span>
+
+        <span class="s1">Button btnCreateQuestion = findViewById(R.id.btnCreateQuestion)</span><span class="s0">;</span>
+        <span class="s1">btnCreateQuestion.setOnClickListener(v -&gt; startActivity(</span><span class="s0">new </span><span class="s1">Intent(MainActivity.</span><span class="s0">this, </span><span class="s1">QuestionActivity.</span><span class="s0">class</span><span class="s1">)))</span><span class="s0">;</span>
+
+        <span class="s1">Button btnPracticeMode = findViewById(R.id.btnPracticeMode)</span><span class="s0">;</span>
+        <span class="s1">btnPracticeMode.setOnClickListener(v -&gt; startActivity(</span><span class="s0">new </span><span class="s1">Intent(MainActivity.</span><span class="s0">this, </span><span class="s1">PracticeModeActivity.</span><span class="s0">class</span><span class="s1">)))</span><span class="s0">;</span>
+
+        <span class="s1">Button btnExamMode = findViewById(R.id.btnExamMode)</span><span class="s0">;</span>
+        <span class="s1">btnExamMode.setOnClickListener(v -&gt; startActivity(</span><span class="s0">new </span><span class="s1">Intent(MainActivity.</span><span class="s0">this, </span><span class="s1">CreateBlock.ExamModeActivity.</span><span class="s0">class</span><span class="s1">)))</span><span class="s0">;</span>
+
+        <span class="s2">// Mostrar por defecto el fragmento de bloques</span>
+        <span class="s0">if </span><span class="s1">(savedInstanceState == </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">showFragment(</span><span class="s0">new </span><span class="s1">BlocksFragment())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">showFragment(Fragment fragment) {</span>
+        <span class="s1">getSupportFragmentManager().beginTransaction()</span>
+                <span class="s1">.replace(R.id.content_frame</span><span class="s0">, </span><span class="s1">fragment)</span>
+                <span class="s1">.commit()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>

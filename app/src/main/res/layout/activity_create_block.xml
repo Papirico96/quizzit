@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edtBlockName"
+        android:layout_width="388dp"
+        android:layout_height="89dp"
+        android:hint="Nombre del bloque"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edtBlockDescription"
+        android:layout_width="394dp"
+        android:layout_height="91dp"
+        android:hint="Descripción del bloque"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/btnSaveBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar Bloque" />
+</LinearLayout>

@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_blocks"
+        android:icon="@drawable/ic_blocks"
+        android:title="Bloques" />
+    <item
+        android:id="@+id/nav_create_questions"
+        android:icon="@drawable/ic_create"
+        android:title="Crear Preguntas" />
+    <item
+        android:id="@+id/nav_exam_mode"
+        android:icon="@drawable/ic_exam"
+        android:title="Modo Examen" />
+</menu>
