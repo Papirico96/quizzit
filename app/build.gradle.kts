@@ -30,9 +30,9 @@ android {
 
 dependencies {
 
+
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.12.0")
-    implementation("com.google.android.material:material:1.9.0")
     implementation ("androidx.drawerlayout:drawerlayout:1.1.1") // Para DrawerLayout
     implementation ("androidx.fragment:fragment:1.5.5")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")

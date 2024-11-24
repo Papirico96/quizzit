@@ -15,34 +15,62 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.quizzit.adapters.BlocksAdapter;
 import com.example.quizzit.models.Block;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BlocksFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private BlocksAdapter adapter;
+    private BlocksAdapter blockAdapter;  // Declara el adaptador correctamente
+    private List<Block> blockList;       // Declara la lista de bloques
     private DatabaseHelper databaseHelper;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_blocks, container, false);
 
-        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recyclerViewBlocks);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         databaseHelper = new DatabaseHelper(getContext());
-        List<Block> blocks = databaseHelper.getAllBlocks();
 
-        adapter = new BlocksAdapter(blocks, block -> openBlockDetails(block));
-        recyclerView.setAdapter(adapter);
+        // Obtener la lista de bloques desde la base de datos
+        blockList = databaseHelper.getAllBlocks();
+
+        // Crear y asignar el adaptador al RecyclerView
+        blockAdapter = new BlocksAdapter(blockList, new BlocksAdapter.OnBlockClickListener() {
+            @Override
+            public void onBlockClick(Block block) {
+                openBlockDetails(block);  // Abre los detalles del bloque
+            }
+        });
+        recyclerView.setAdapter(blockAdapter);
 
         return view;
     }
 
+    private List<Block> getBlocks() {
+        // Simulamos la obtención de bloques (esto debería ser real)
+        List<Block> blocks = new ArrayList<>();
+        blocks.add(new Block(1, "Matemáticas", "Descripción de Matemáticas"));
+        blocks.add(new Block(2, "Historia", "Descripción de Historia"));
+        return blocks;
+    }
+
+    private void insertSampleBlocks() {
+        // Si no hay bloques en la base de datos, insertamos algunos bloques de ejemplo
+        if (databaseHelper.getAllBlocks().isEmpty()) {
+            databaseHelper.addBlock("Matemáticas", "Descripción de Matemáticas");
+            databaseHelper.addBlock("Historia", "Descripción de Historia");
+        }
+    }
+
     private void openBlockDetails(Block block) {
         Intent intent = new Intent(getActivity(), BlockDetailsActivity.class);
-        intent.putExtra("BLOCK_ID", block.getId());
+        intent.putExtra("BLOCK_ID", block.getId());  // Pasamos el ID del bloque
         startActivity(intent);
     }
 }

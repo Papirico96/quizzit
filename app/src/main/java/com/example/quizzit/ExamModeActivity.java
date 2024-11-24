@@ -73,10 +73,11 @@ public class ExamModeActivity extends AppCompatActivity {
                     currentQuestion.getOption3(),
                     currentQuestion.getOption4()
             };
+            // Crear RadioButtons dinámicamente para cada opción
             for (int i = 0; i < options.length; i++) {
                 RadioButton radioButton = new RadioButton(this);
                 radioButton.setText(options[i]);
-                radioButton.setId(i + 1); // IDs únicos
+                radioButton.setId(i + 1); // IDs únicos para cada opción (1, 2, 3, 4)
                 optionsRadioGroup.addView(radioButton);
             }
         }

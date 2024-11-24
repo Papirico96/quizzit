@@ -6,16 +6,76 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Título del bloque -->
     <TextView
-        android:id="@+id/block_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/block_title_detail"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:text="Título del Bloque"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:paddingBottom="8dp" />
 
+    <!-- Descripción del bloque -->
     <TextView
-        android:id="@+id/block_description"
-        android:layout_width="wrap_content"
+        android:id="@+id/block_description_detail"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:text="Descripción del Bloque"
+        android:textSize="16sp"
+        android:paddingBottom="16dp" />
+
+    <!-- RecyclerView para las preguntas -->
+    <!-- RecyclerView para mostrar preguntas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewQuestions"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="16dp" />
+
+    <!-- Formulario para agregar una pregunta -->
+    <EditText
+        android:id="@+id/etQuestionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Escribe tu pregunta aquí"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etOption1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Opción 1"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etOption2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Opción 2"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etOption3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Opción 3"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etOption4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Opción 4"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/btnSaveQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar Pregunta"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@android:color/white" />
+
 </LinearLayout>

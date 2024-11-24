@@ -76,6 +76,15 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+    <!-- Aquí va el RecyclerView para mostrar las preguntas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_questions"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:background="#FFFFFF"/>
+
 <!--Pregunta-->
     <TextView
         android:id="@+id/textView"
@@ -86,14 +95,15 @@
         android:textColor="#000"
         android:layout_height="wrap_content"
         android:text="Aqui va la pregutna de los cojones" />
+
 <!--layout que engloba todos los botones-->
-    <LinearLayout
+    <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"/>
 <!--Grupo botones de respuesta-->
         <RadioGroup
             android:id="@+id/radio_group"
@@ -163,15 +173,23 @@
 
                 />
         </RadioGroup>
-        <!-- Botón para pasar a la siguiente pregunta -->
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Siguiente"
-            android:backgroundTint="#1E88E5"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_marginTop="16dp" />
-    </LinearLayout>
+
+    <!-- Botón para pasar a la siguiente pregunta -->
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Siguiente"
+        android:backgroundTint="#1E88E5"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+    <!-- Botón para guardar la pregunta -->
+    <Button
+        android:id="@+id/btn_save_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardar Pregunta"
+        android:layout_marginTop="16dp" />
 </LinearLayout>

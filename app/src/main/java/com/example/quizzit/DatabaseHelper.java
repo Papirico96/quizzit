@@ -132,6 +132,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("correct_option", correctOption);
         db.insert("questions", null, values);
     }
+    public void deleteQuestion(int questionId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("questions", "id = ?", new String[]{String.valueOf(questionId)});
+    }
 
 
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="#FFFFFF"
+    android:layout_margin="8dp"
+    android:elevation="2dp">
+
+    <!-- Título o texto de la pregunta -->
+    <EditText
+        android:id="@+id/questionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Texto de la pregunta"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#212121"
+        android:layout_marginBottom="4dp"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:maxLines="5" />
+
+    <!-- Opcional: Respuesta correcta/estado -->
+    <EditText
+        android:id="@+id/option1TextView"
+        android:layout_width="379dp"
+        android:layout_height="82dp"
+        android:hint="Opción 1"
+        android:inputType="text"
+        android:textColor="#757575"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/option2TextView"
+        android:layout_width="380dp"
+        android:layout_height="67dp"
+        android:hint="Opción 2"
+        android:inputType="text"
+        android:textColor="#757575"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/option3TextView"
+        android:layout_width="379dp"
+        android:layout_height="71dp"
+        android:hint="Opción 3"
+        android:inputType="text"
+        android:textColor="#757575"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/option4TextView"
+        android:layout_width="379dp"
+        android:layout_height="80dp"
+        android:hint="Opción 4"
+        android:inputType="text"
+        android:textColor="#757575"
+        android:textSize="14sp" />
+
+    <!-- Botones de editar y eliminar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Editar"
+            android:backgroundTint="#FFC107"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Eliminar"
+            android:backgroundTint="#F44336"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+</LinearLayout>

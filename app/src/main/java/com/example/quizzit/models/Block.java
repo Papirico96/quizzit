@@ -5,7 +5,7 @@ public class Block {
     private String title;
     private String description;
 
-    public Block(int id, String name, String description) {
+    public Block(int id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;

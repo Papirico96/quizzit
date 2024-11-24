@@ -3,6 +3,11 @@ package com.example.quizzit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
+import android.util.Log;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +29,17 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
 
+        // Inicializar Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        toolbar.setNavigationOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(this, v);
+            MenuInflater inflater = popupMenu.getMenuInflater();
+            inflater.inflate(R.menu.navigation_menu, popupMenu.getMenu());
+            popupMenu.show();
+        });
+
         // Configurar el toggle para el menú lateral
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, R.string.open_drawer, R.string.close_drawer);
@@ -34,13 +50,16 @@ public class MainActivity extends AppCompatActivity {
         // Configurar el menú lateral
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.nav_blocks:
-                    showFragment(new BlocksFragment());
+                case R.id.createBlock:
+                    showFragment(new BlocksFragment()); // Mostrar el fragmento de bloques
                     break;
-                case R.id.nav_create_questions:
+                case R.id.createQuestion:
                     startActivity(new Intent(this, CreateBlock.class));
                     break;
-                case R.id.nav_exam_mode:
+                case R.id.testMode:
+                    startActivity(new Intent(this, ExamModeActivity.class));
+                    break;
+                case R.id.examMode:
                     startActivity(new Intent(this, ExamModeActivity.class));
                     break;
             }
@@ -59,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
         btnPracticeMode.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PracticeModeActivity.class)));
 
         Button btnExamMode = findViewById(R.id.btnExamMode);
-        btnExamMode.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CreateBlock.ExamModeActivity.class)));
+        btnExamMode.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ExamModeActivity.class)));
 
         // Mostrar por defecto el fragmento de bloques
         if (savedInstanceState == null) {
-            showFragment(new BlocksFragment());
+            showFragment(new BlocksFragment());  // Mostrar el fragmento de bloques
         }
     }
 

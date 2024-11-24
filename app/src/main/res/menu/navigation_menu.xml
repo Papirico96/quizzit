@@ -1,14 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_blocks"
-        android:icon="@drawable/ic_blocks"
-        android:title="Bloques" />
-    <item
-        android:id="@+id/nav_create_questions"
-        android:icon="@drawable/ic_create"
-        android:title="Crear Preguntas" />
-    <item
-        android:id="@+id/nav_exam_mode"
-        android:icon="@drawable/ic_exam"
-        android:title="Modo Examen" />
+    <item android:id="@+id/createBlock" android:title="Crear Bloque" android:icon="@drawable/ic_blocks" />
+    <item android:id="@+id/createQuestion" android:title="Crear Pregunta" android:icon="@drawable/ic_create" />
+    <item android:id="@+id/testMode" android:title="Modo Prueba" android:icon="@drawable/ic_test_mode" />
+    <item android:id="@+id/examMode" android:title="Modo Examen" android:icon="@drawable/ic_exam" />
+
 </menu>
