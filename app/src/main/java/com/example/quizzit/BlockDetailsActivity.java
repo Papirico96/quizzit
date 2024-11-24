@@ -1,8 +1,6 @@
 package com.example.quizzit;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,7 +14,6 @@ import com.example.quizzit.models.Block;
 import com.example.quizzit.models.Question;
 import com.example.quizzit.adapters.QuestionAdapter;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -70,7 +67,7 @@ public class BlockDetailsActivity extends AppCompatActivity {
         // Obtener detalles del bloque
         Block block = databaseHelper.getBlockById(blockId);
         if (block != null) {
-            titleTextView.setText(block.getTitle());
+            titleTextView.setText(block.getName());
             descriptionTextView.setText(block.getDescription());
 
             // Obtener las preguntas asociadas

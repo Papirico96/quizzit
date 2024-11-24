@@ -36,7 +36,7 @@ public class BlocksAdapter extends RecyclerView.Adapter<BlocksAdapter.BlockViewH
     @Override
     public void onBindViewHolder(@NonNull BlockViewHolder holder, int position) {
         Block block = blocks.get(position);
-        holder.titleTextView.setText(block.getTitle());  // Cambiado a getTitle()
+        holder.titleTextView.setText(block.getName());  // Cambiado a getTitle()
         holder.descriptionTextView.setText(block.getDescription());
         holder.itemView.setOnClickListener(v -> listener.onBlockClick(block));
     }
@@ -56,7 +56,7 @@ public class BlocksAdapter extends RecyclerView.Adapter<BlocksAdapter.BlockViewH
         }
 
         public void bind(Block block) {
-            titleTextView.setText(block.getTitle());
+            titleTextView.setText(block.getName());
             descriptionTextView.setText(block.getDescription());
             itemView.setOnClickListener(v -> listener.onBlockClick(block));
         }

@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Crear tabla 'blocks'
         db.execSQL("CREATE TABLE blocks (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "title TEXT NOT NULL, " +
+                "name TEXT NOT NULL, " +
                 "description TEXT)");
 
         // Crear tabla 'questions'
@@ -49,12 +49,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Manejar actualizaciones de esquema (si cambias la base de datos)
-        db.execSQL("DROP TABLE IF EXISTS questions");
-        db.execSQL("DROP TABLE IF EXISTS blocks");
-        onCreate(db);
-
-
+        if (oldVersion < 2) {  // Si es la primera vez que se actualiza
+            db.execSQL("ALTER TABLE blocks ADD COLUMN name TEXT");
+        }
     }
+
     public List<Block> getAllBlocks() {
         List<Block> blocks = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -63,9 +62,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
-                String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
-                blocks.add(new Block(id, title, description));
+                blocks.add(new Block(id, name, description));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -77,19 +76,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
-            String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
             String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
             cursor.close();
-            return new Block(id, title, description);
+            return new Block(id, name, description);
         }
 
         cursor.close();
         return null;
     }
-    public void addBlock(String title, String description) {
+    public void addBlock(String name, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("title", title);
+        values.put("name", name);
         values.put("description", description);
         db.insert("blocks", null, values);
     }

@@ -3,5 +3,10 @@
     <item android:id="@+id/createQuestion" android:title="Crear Pregunta" android:icon="@drawable/ic_create" />
     <item android:id="@+id/testMode" android:title="Modo Prueba" android:icon="@drawable/ic_test_mode" />
     <item android:id="@+id/examMode" android:title="Modo Examen" android:icon="@drawable/ic_exam" />
+    <item
+        android:id="@+id/menu_options"
+        android:title="Opciones"
+        android:icon="@drawable/ic_menu"
+        />
 
 </menu>
