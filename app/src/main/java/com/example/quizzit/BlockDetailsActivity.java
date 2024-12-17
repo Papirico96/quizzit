@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +15,8 @@ import com.example.quizzit.models.Block;
 import com.example.quizzit.models.Question;
 import com.example.quizzit.adapters.QuestionAdapter;
 
+
+
 import java.util.Collections;
 import java.util.List;
 
@@ -22,6 +25,9 @@ public class BlockDetailsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EditText etQuestionText, etOption1, etOption2, etOption3, etOption4;
     private Button btnSaveQuestion;
+    private RecyclerView questionsRecyclerView;
+    private QuestionAdapter questionAdapter;
+    private List<Question> questions = new ArrayList<>();
 
     private DatabaseHelper databaseHelper;
     private int blockId;
@@ -90,6 +96,7 @@ public class BlockDetailsActivity extends AppCompatActivity {
             Toast.makeText(this, "Error: Bloque no encontrado.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void saveQuestion() {
         String questionText = etQuestionText.getText().toString().trim();

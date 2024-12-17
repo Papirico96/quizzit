@@ -10,9 +10,17 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private List<MyData> dataList;
+    private OnItemClickListener listener;
 
-    public MyAdapter(List<MyData> dataList) {
+    // Interfaz para manejar clics en los elementos
+    public interface OnItemClickListener {
+        void onItemClick(MyData data);
+    }
+
+    // Constructor modificado
+    public MyAdapter(List<MyData> dataList, OnItemClickListener listener) {
         this.dataList = dataList;
+        this.listener = listener;
     }
 
     @Override
@@ -24,7 +32,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         MyData item = dataList.get(position);
-        holder.textView.setText(item.getName());
+        holder.bind(item, listener); // Vincula los datos y el listener
     }
 
     @Override
@@ -33,11 +41,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView titleTextView;
+        TextView descriptionTextView;
 
         ViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
+            titleTextView = itemView.findViewById(R.id.titleTextView); // Referencia al TextView para el título
+            descriptionTextView = itemView.findViewById(R.id.descriptionTextView); // Referencia al TextView para la descripción
+        }
+
+        void bind(final MyData data, final OnItemClickListener listener) {
+            titleTextView.setText(data.getTitle());  // Asigna el título
+            descriptionTextView.setText(data.getDescription());  // Asigna la descripción
+            itemView.setOnClickListener(v -> listener.onItemClick(data)); // Configura el clic
         }
     }
 }

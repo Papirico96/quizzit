@@ -5,22 +5,29 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.PopupMenu;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
+
+import com.example.quizzit.adapters.BlocksAdapter;
+import com.example.quizzit.models.QuestionBlock;
+import com.example.quizzit.models.Block;
+
 import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private RecyclerView recyclerView;
-    private MyAdapter adapter;
-    private ArrayList<MyData> dataList;
+    private BlocksAdapter blockAdapter;
+    private List<Block> blocks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +62,10 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.createBlock:
-                    showFragment(new BlocksFragment());
-                    break;
-                case R.id.createQuestion:
                     startActivity(new Intent(this, CreateBlock.class));
                     break;
-                case R.id.testMode:
-                    startActivity(new Intent(this, ExamModeActivity.class));
+                case R.id.createQuestion:
+                    startActivity(new Intent(this, CreateQuestionActivity.class));
                     break;
                 case R.id.examMode:
                     startActivity(new Intent(this, ExamModeActivity.class));
@@ -71,70 +75,41 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        // Botones en la pantalla principal
-        Button btnCreateBlock = findViewById(R.id.btnCreateBlock);
-        btnCreateBlock.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CreateBlock.class)));
-
+        // Botón de "Crear Pregunta"
         Button btnCreateQuestion = findViewById(R.id.btnCreateQuestion);
-        btnCreateQuestion.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, QuestionActivity.class)));
-
-        Button btnPracticeMode = findViewById(R.id.btnPracticeMode);
-        btnPracticeMode.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PracticeModeActivity.class)));
-
-        Button btnExamMode = findViewById(R.id.btnExamMode);
-        btnExamMode.setOnClickListener(v -> {
-            Log.d("MainActivity", "Intent para iniciar ExamModeActivity disparado");
-            startActivity(new Intent(MainActivity.this, ExamModeActivity.class));
+        btnCreateQuestion.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CreateQuestionActivity.class);
+            startActivity(intent);
         });
 
-        // Mostrar por defecto el fragmento de bloques
-        if (savedInstanceState == null) {
-            showFragment(new BlocksFragment());
-        }
+        // Configuración del RecyclerView para mostrar los bloques seleccionables
+        recyclerView = findViewById(R.id.recyclerViewBlocks);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Inicialización del RecyclerView
-        recyclerView = findViewById(R.id.recyclerViewBlocks);  // Asegúrate de tener este ID en tu XML
-        recyclerView.setLayoutManager(new LinearLayoutManager(this)); // LayoutManager para lista vertical
+        // Cargar los datos de bloques desde la base de datos
+        blocks = getBlocksFromDatabase();
 
-        // Configuración inicial del adaptador con una lista vacía
-        dataList = new ArrayList<>();
-        adapter = new MyAdapter(dataList); // Crear el adaptador
-        recyclerView.setAdapter(adapter);
-
-        // Simular carga de datos
-        loadData();
+        // Configurar el adaptador para los bloques
+        blockAdapter = new BlocksAdapter(blocks, this::onBlockSelected);
+        recyclerView.setAdapter(blockAdapter);
     }
 
-    // Este método simula la carga de datos de manera asíncrona
-    private void loadData() {
-        new Thread(() -> {
-            try {
-                Thread.sleep(2000); // Simula un retraso de 2 segundos
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            runOnUiThread(() -> {
-                // Datos simulados
-                dataList.clear();
-                dataList.add(new MyData("Item 1"));
-                dataList.add(new MyData("Item 2"));
-                dataList.add(new MyData("Item 3"));
-                adapter.notifyDataSetChanged(); // Notificar al adaptador
-            });
-        }).start();
+    private void onBlockSelected(Block block) {
+        Log.d("MainActivity", "Bloque seleccionado: " + block.getName());
+        // Abrir una nueva actividad para mostrar las preguntas de este bloque
+        Intent intent = new Intent(this, BlockDetailsActivity.class); // Nueva actividad
+        intent.putExtra("BLOCK_ID", block.getId()); // Pasar el ID del bloque seleccionado
+        startActivity(intent);
     }
 
-    private void showFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, fragment)
-                .commit();
+    private List<Block> getBlocksFromDatabase() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        return databaseHelper.getAllBlocks(); // Obtener bloques desde la base de datos
     }
 
     private void showPopupMenu(Toolbar toolbar) {
         PopupMenu popupMenu = new PopupMenu(this, toolbar.findViewById(R.id.menu_options));
         popupMenu.show();
-
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.createBlock:

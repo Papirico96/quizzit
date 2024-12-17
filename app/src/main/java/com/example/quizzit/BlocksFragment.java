@@ -41,7 +41,7 @@ public class BlocksFragment extends Fragment {
         blockList = databaseHelper.getAllBlocks();
 
         // Crear y asignar el adaptador al RecyclerView
-        blockAdapter = new BlocksAdapter(blockList, new BlocksAdapter.OnBlockClickListener() {
+        blockAdapter = new BlocksAdapter(blockList, new BlocksAdapter.onBlockClickListener() {
             @Override
             public void onBlockClick(Block block) {
                 openBlockDetails(block);  // Abre los detalles del bloque

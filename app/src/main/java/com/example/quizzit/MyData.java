@@ -1,13 +1,22 @@
 package com.example.quizzit;
 
 public class MyData {
-    private String name;
+    private String title;
+    private String description;
 
-    public MyData(String name) {
-        this.name = name;
+    // Constructor que acepta título y descripción
+    public MyData(String title, String description) {
+        this.title = title;
+        this.description = description;
     }
 
-    public String getName() {
-        return name;
+    // Getter para el título
+    public String getTitle() {
+        return title;
+    }
+
+    // Getter para la descripción
+    public String getDescription() {
+        return description;
     }
 }

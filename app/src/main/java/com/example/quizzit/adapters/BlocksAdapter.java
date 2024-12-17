@@ -14,13 +14,13 @@ import java.util.List;
 public class BlocksAdapter extends RecyclerView.Adapter<BlocksAdapter.BlockViewHolder> {
 
     private List<Block> blocks;
-    private OnBlockClickListener listener;
+    private onBlockClickListener listener;
 
-    public interface OnBlockClickListener {
+    public interface onBlockClickListener {
         void onBlockClick(Block block);
     }
 
-    public BlocksAdapter(List<Block> blocks, OnBlockClickListener listener) {
+    public BlocksAdapter(List<Block> blocks, onBlockClickListener listener) {
         this.blocks = blocks;
         this.listener = listener;
     }
